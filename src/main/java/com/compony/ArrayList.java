@@ -28,17 +28,75 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public void add(T element) {
-
+        add(size, element);
     }
 
     @Override
     public void add(int index, T element) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("не корректный индекс");
+        }
+        if (size == 0) {
+            items[start] = element;
+        } else if (size < items.length) { // Есть резерв
+            if (index <= size / 2) {  // Вставка в первую половину
+                if (start == 0) { // Нет резерва в начале
+
+                } else { // Есть резерв в начале
+
+                }
+            } else {  // Вставка во вторую половину
+                if (start + size < items.length) { // Есть резерв в конце
+
+                } else { // Нет резерва в конце
+
+                }
+            }
+        } else { // Резерва нет
+
+        }
+
 
     }
 
     @Override
     public void remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("не корректный индекс");
+        }
+        if (items.length > size * 4) {
+            recreateItems(index);
+        } else {
+            if (index <= size / 2) { // Удаление из левой части
+                for (int i = index; i > 0; i--) {
+                    items[start + i] = items[start + i - 1];
+                }
+                items[start] = null;
+                start++;
+            } else { // Удаление из правой части
+                for (int i = index; i < size - 1; i++) {
+                    items[start + i] = items[start + i + 1];
+                }
+                items[size] = null;
+            }
+        }
+        size--;
+    }
 
+    private void recreateItems(int index) {
+        int newStart = start;
+        if (newStart == 0) {
+            newStart = (items.length / 2 - size) / 2;
+        }
+        Object[] newItems = new Object[items.length / 2];
+        for (int i = 0; i < index; i++) {
+            newItems[newStart + i] = items[start + i];
+        }
+        for (int i = index; i < size - 1; i++) {
+            newItems[newStart + i] = items[start + i + 1];
+        }
+        items = newItems;
+        start = newStart;
     }
 
     @Override
