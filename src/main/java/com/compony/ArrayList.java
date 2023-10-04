@@ -41,22 +41,53 @@ public class ArrayList<T> implements List<T> {
         } else if (size < items.length) { // Есть резерв
             if (index <= size / 2) {  // Вставка в первую половину
                 if (start == 0) { // Нет резерва в начале
-
+                    addLeftShift(index, element);
                 } else { // Есть резерв в начале
-
+                    addLeft(index, element);
                 }
             } else {  // Вставка во вторую половину
                 if (start + size < items.length) { // Есть резерв в конце
-
+                    addRight(index, element);
                 } else { // Нет резерва в конце
-
+                    addRightShift(index, element);
                 }
             }
         } else { // Резерва нет
-
+            recreateItems(index, element);
         }
+        size++;
+    }
 
+    private void addLeftShift(int index, T element) {
+        for (int i = size - 1; i >= index ; i--) {
+            items[start + i + 1] = items[i];
+        }
+        items[start + index] = element;
+        for (int i = index - 1; i >= 0 ; i--) {
+            items[start + i] = items[i];
+        }
+        Arrays.fill(items, 0, start, null);
+    }
 
+    private void addLeft(int index, T element) {} // Попробуй реализовать
+    private void addRight(int index, T element) {} // Попробуй реализовать
+    private void addRightShift(int index, T element) {} // Попробуй реализовать
+
+    private void recreateItems(int index, T elment) {
+        int newStart = start;
+        if (newStart == 0) {
+            newStart = (items.length * 2 - size) / 2;
+        }
+        Object[] newItems = new Object[items.length / 2];
+        for (int i = 0; i < index; i++) {
+            newItems[newStart + i] = items[start + i];
+        }
+        newItems[newStart + index] = elment;
+        for (int i = index; i < size; i++) {
+            newItems[newStart + i] = items[start + i + 1];
+        }
+        items = newItems;
+        start = newStart;
     }
 
     @Override
