@@ -2,7 +2,6 @@ package com.compony;
 
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.stream.IntStream;
 
 public class ArrayList<T> implements List<T> {
 
