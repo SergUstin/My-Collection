@@ -33,7 +33,7 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public void add(int index, T element) {
-        if (index < 0 || index >= size) {
+        if (index < 0 || index > size) {
             throw new IllegalArgumentException("не корректный индекс");
         }
         if (size == 0) {
@@ -69,9 +69,34 @@ public class ArrayList<T> implements List<T> {
         Arrays.fill(items, 0, start, null);
     }
 
-    private void addLeft(int index, T element) {} // Попробуй реализовать
-    private void addRight(int index, T element) {} // Попробуй реализовать
-    private void addRightShift(int index, T element) {} // Попробуй реализовать
+    private void addLeft(int index, T element) {
+        for (int i = 0; i < index; i++) {
+            items[start + i - 1] = items[start + i];
+        }
+        start--;
+        items[start + index] = element;
+    }
+    private void addRight(int index, T element) {
+        for (int i = size; i > index; i--) {
+            items[start + i] = items[start + i - 1];
+        }
+        items[start + index] = element;
+    }
+    private void addRightShift(int index, T element) {
+        int newStart = start / 2;
+        for (int i = 0; i < index; i++) {
+            items[start + i - 1] = items[start + i];
+        }
+        items[start + index] = element;
+        if (newStart != start - 1) {
+            for (int i = index; i < size ; i++) {
+                items[newStart + i + 1] = items[start + i];
+            }
+        }
+        start = newStart;
+        Arrays.fill(items, start + size, items.length, null);
+
+    }
 
     private void recreateItems(int index, T elment) {
         int newStart = start;
