@@ -99,16 +99,16 @@ public class ArrayList<T> implements List<T> {
 
     private void recreateItems(int index, T elment) {
         int newStart = start;
-        if (newStart == 0) {
+        if (newStart == 0 && index <= size / 2) {
             newStart = (items.length * 2 - size) / 2;
         }
-        Object[] newItems = new Object[items.length / 2];
+        Object[] newItems = new Object[items.length * 2];
         for (int i = 0; i < index; i++) {
             newItems[newStart + i] = items[start + i];
         }
         newItems[newStart + index] = elment;
         for (int i = index; i < size; i++) {
-            newItems[newStart + i] = items[start + i + 1];
+            newItems[newStart + i + 1] = items[start + i];
         }
         items = newItems;
         start = newStart;
