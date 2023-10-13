@@ -14,7 +14,7 @@ class ArrayListTest {
                 () -> assertEquals("Я", list.get(0)),
                 () -> assertEquals("супер", list.get(1)),
                 () -> assertEquals("Java", list.get(2)),
-                () -> assertEquals("програмист", list.get(3))
+                () -> assertEquals("программист", list.get(3))
         );
     }
 
@@ -28,7 +28,7 @@ class ArrayListTest {
     private void fillListThreeElement () {
         list.add("супер");
         list.add("Java");
-        list.add("програмист");
+        list.add("программист");
     }
 
     private void fillListFourElement() {
@@ -78,7 +78,7 @@ class ArrayListTest {
     }
 
     @Test
-    @DisplayName("Проверка добавления в начало")
+    @DisplayName("Метод add добавление в начало, когда резерва нет")
     void addWithRecreateLeft() {
         list = new ArrayList<>(3);
 
@@ -92,4 +92,57 @@ class ArrayListTest {
                 this::standardPhraseFiveElement
         );
     }
+
+    @Test
+    @DisplayName("Метод add добавление в начало, когда есть резерв")
+    void addWithLeftReserve() {
+        list = new ArrayList<>(3);
+
+        list.add("Java");
+        list.add("программист");
+        list.add("!");
+        list.add(0, "Я");
+        list.add(1, "супер");
+
+        assertAll("",
+                () -> assertEquals(5, list.size()),
+                this::standardPhraseFiveElement
+        );
+    }
+
+    @Test
+    @DisplayName("Метод add добавление, с резервом в конце")
+    void addWithLeftShift() {
+        // Создать лист на 4 элемента
+        // Добавить элемент в первый индекс - проверить что все находиться на своих местах
+
+    }
+
+    @Test
+    @DisplayName("")
+    void addWithRightShift() {
+        // Создать лист на 4 элемента
+        // Добавляем два элемента, один в нулевой индекс и в конец - проверить что все находиться на своих местах
+    }
+
+    @Test
+    @DisplayName("")
+    void removeLeft() {
+        // Создать лист на 5 элемента
+        // Удаляем элемент по индексу 1 - проверить что все находиться на своих местах
+    }
+
+    @Test
+    @DisplayName("")
+    void removeRight() {
+        // Создать лист на 5 элемента
+        // Удаляем элемент по индексу 3 - проверить что все находиться на своих местах
+    }
+
+
+
+
+
+
+
 }
