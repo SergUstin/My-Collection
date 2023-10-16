@@ -25,7 +25,7 @@ class ArrayListTest {
         );
     }
 
-    private void fillListThreeElement () {
+    private void fillListThreeElement() {
         list.add("супер");
         list.add("Java");
         list.add("программист");
@@ -34,6 +34,11 @@ class ArrayListTest {
     private void fillListFourElement() {
         list.add("Я");
         fillListThreeElement();
+    }
+
+    private void fillListFiveElement() {
+        fillListFourElement();
+        list.add("!");
     }
 
     @Test
@@ -115,34 +120,75 @@ class ArrayListTest {
     void addWithLeftShift() {
         // Создать лист на 4 элемента
         // Добавить элемент в первый индекс - проверить что все находиться на своих местах
+        list = new ArrayList<>();
+
+        fillListThreeElement();
+        list.add("!");
+        list.add(0, "Я");
+
+        assertAll("",
+                () -> assertEquals(5, list.size()),
+                this::standardPhraseFiveElement
+        );
 
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Метод add добавление, со сдвигом")
     void addWithRightShift() {
         // Создать лист на 4 элемента
         // Добавляем два элемента, один в нулевой индекс и в конец - проверить что все находиться на своих местах
+        list = new ArrayList<>();
+
+        fillListThreeElement();
+        list.add(0, "Я");
+        list.add("!");
+
+        assertAll("",
+                this::standardPhraseFiveElement,
+                () -> assertEquals(5, list.size())
+        );
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Удаление элемента с лева от середины")
     void removeLeft() {
         // Создать лист на 5 элемента
         // Удаляем элемент по индексу 1 - проверить что все находиться на своих местах
+
+        list = new ArrayList<>();
+
+        fillListFiveElement();
+        list.remove(1);
+
+        assertAll("",
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("Java", list.get(1)),
+                () -> assertEquals("программист", list.get(2)),
+                () -> assertEquals("!", list.get(3)),
+                () -> assertEquals(4, list.size())
+        );
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Удаление элемента с права от середины")
     void removeRight() {
-        // Создать лист на 5 элемента
+        // Создать лист на 5 элементов
         // Удаляем элемент по индексу 3 - проверить что все находиться на своих местах
+
+        list = new ArrayList<>();
+
+        fillListFiveElement();
+        list.remove(3);
+
+        assertAll("",
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("Java", list.get(2)),
+                () -> assertEquals("!", list.get(3)),
+                () -> assertEquals(4, list.size())
+        );
     }
-
-
-
-
-
 
 
 }
