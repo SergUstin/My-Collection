@@ -1,7 +1,10 @@
 package com.compony;
 
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -120,15 +123,16 @@ class ArrayListTest {
     void addWithLeftShift() {
         // Создать лист на 4 элемента
         // Добавить элемент в первый индекс - проверить что все находиться на своих местах
-        list = new ArrayList<>();
+        list = new ArrayList<>(4);
 
-        fillListThreeElement();
-        list.add("!");
-        list.add(0, "Я");
+        list.add("Я");
+        list.add("Java");
+        list.add("программист");
+        list.add(1, "супер");
 
         assertAll("",
-                () -> assertEquals(5, list.size()),
-                this::standardPhraseFiveElement
+                () -> assertEquals(4, list.size()),
+                this::standardPhraseFourElement
         );
 
     }
@@ -138,15 +142,16 @@ class ArrayListTest {
     void addWithRightShift() {
         // Создать лист на 4 элемента
         // Добавляем два элемента, один в нулевой индекс и в конец - проверить что все находиться на своих местах
-        list = new ArrayList<>();
+        list = new ArrayList<>(4);
 
-        fillListThreeElement();
+        list.add("супер");
+        list.add("Java");
         list.add(0, "Я");
-        list.add("!");
+        list.add("программист");
 
         assertAll("",
-                this::standardPhraseFiveElement,
-                () -> assertEquals(5, list.size())
+                () -> assertEquals(4, list.size()),
+                this::standardPhraseFourElement
         );
     }
 
@@ -162,11 +167,11 @@ class ArrayListTest {
         list.remove(1);
 
         assertAll("",
+                () -> assertEquals(4, list.size()),
                 () -> assertEquals("Я", list.get(0)),
                 () -> assertEquals("Java", list.get(1)),
                 () -> assertEquals("программист", list.get(2)),
-                () -> assertEquals("!", list.get(3)),
-                () -> assertEquals(4, list.size())
+                () -> assertEquals("!", list.get(3))
         );
     }
 
@@ -182,12 +187,34 @@ class ArrayListTest {
         list.remove(3);
 
         assertAll("",
+                () -> assertEquals(4, list.size()),
                 () -> assertEquals("Я", list.get(0)),
                 () -> assertEquals("супер", list.get(1)),
                 () -> assertEquals("Java", list.get(2)),
-                () -> assertEquals("!", list.get(3)),
-                () -> assertEquals(4, list.size())
+                () -> assertEquals("!", list.get(3))
         );
+    }
+
+    @Test
+    @SneakyThrows
+    @DisplayName("Уменьшение размерности внутреннего массива")
+    void reduceSize() {
+        list = new ArrayList<>(100);
+
+        fillListFiveElement();
+        list.remove(1);
+
+        assertAll("",
+                () -> assertEquals(4, list.size()),
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("Java", list.get(1)),
+                () -> assertEquals("программист", list.get(2)),
+                () -> assertEquals("!", list.get(3))
+        );
+
+        Field field = ArrayList.class.getDeclaredField("items");
+        field.setAccessible(true);
+        assertEquals(50, ((Object[]) field.get(list)).length);
     }
 
 
