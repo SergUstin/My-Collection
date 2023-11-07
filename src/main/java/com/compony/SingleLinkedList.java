@@ -129,10 +129,41 @@ public class SingleLinkedList<T> implements List<T> {
     }
 
     private boolean removeWhenTwo(T elment) {
-        return false;
+        if (Objects.equals(first.element, elment)) {
+            first = last;
+            last = null;
+            size--;
+            return true;
+        } else if (Objects.equals(last.element, elment)) {
+            last = first;
+            first.next = null;
+            size--;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private boolean findAndRemove(T elment) {
+        if (Objects.equals(first.element, elment)) {
+            first = first.next;
+            size--;
+            return true;
+        }
+
+        Node<T> previous = first;
+
+        for (int i = 1; i < size; i++) {
+            if (Objects.equals(previous.next.element, elment)) {
+                previous.next = previous.next.next;
+                if (i == size - 1) {
+                    last = previous; // проверить как работает, если нет такой строчки внутри класса
+                }
+                size--;
+                return true;
+            }
+            previous = previous.next;
+        }
         return false;
     }
 
