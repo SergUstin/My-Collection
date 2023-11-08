@@ -131,7 +131,6 @@ public class SingleLinkedList<T> implements List<T> {
     private boolean removeWhenTwo(T elment) {
         if (Objects.equals(first.element, elment)) {
             first = last;
-            last = null;
             size--;
             return true;
         } else if (Objects.equals(last.element, elment)) {
@@ -172,11 +171,11 @@ public class SingleLinkedList<T> implements List<T> {
         if (index < 0 || index >= size) {
             throw new IllegalArgumentException("не корректный индекс");
         }
-        Node<T> firstNode = first;
+        Node<T> node = first;
         for (int i = 0; i < index; i++) {
-            firstNode = firstNode.next;
+            node = node.next;
         }
-        return firstNode.element;
+        return node.element;
     }
 
     @Override
