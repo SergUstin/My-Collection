@@ -78,9 +78,9 @@ public class SingleLinkedList<T> implements List<T> {
             } else {
                 last = first;
                 first.next = null;
-                size--;
-                return;
             }
+            size--;
+            return;
         }
 
         if (index == 0) {
