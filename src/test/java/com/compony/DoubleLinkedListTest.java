@@ -83,4 +83,86 @@ class DoubleLinkedListTest {
         );
     }
 
+    @Test
+    void indexOf() {
+
+    }
+
+    @Test
+    void removeByIndex() {
+
+    }
+
+    @Test
+    void removeOneElementByIndex() {
+
+    }
+
+    @Test
+    void removeFirstOfTwoElementsByIndex() {
+
+    }
+
+    @Test
+    void removeSecondOfTwoElementsByIndex() {
+
+    }
+
+    @Test
+    void removeFirstOfManyByIndex() {
+
+    }
+
+    @Test
+    void removeLastOfManyByIndex() {
+
+    }
+
+    @Test
+    void removeInMiddleOfManyByIndex() {
+
+    }
+
+    @Test
+    void removeOneElementByElement() {
+
+    }
+
+    @Test
+    void removeFirstElementOfTwoElementByElement() {
+
+    }
+
+    @Test
+    void removeSecondElementOfTwoElementByElement() {
+
+    }
+
+    @Test
+    void removeFirstOfManyByElement() {
+
+    }
+
+    @Test
+    void removeLastOfManyByElement() {
+
+    }
+
+    @Test
+    void removeInMiddleOfManyByElement() {
+
+    }
+
+    @Test
+    void removeNotExistElementOfManyByElement() {
+
+    }
+
+    @Test
+    void clear() {
+
+    }
+
+
+
 }

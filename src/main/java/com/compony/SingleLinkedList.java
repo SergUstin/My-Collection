@@ -156,7 +156,7 @@ public class SingleLinkedList<T> implements List<T> {
             if (Objects.equals(previous.next.element, elment)) {
                 previous.next = previous.next.next;
                 if (i == size - 1) {
-                    last = previous; // проверить как работает, если нет такой строчки внутри класса
+                    last = previous;
                 }
                 size--;
                 return true;

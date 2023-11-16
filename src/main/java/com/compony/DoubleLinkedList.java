@@ -1,12 +1,14 @@
 package com.compony;
 
+import java.util.Objects;
+
 public class DoubleLinkedList<T> implements List<T> {
 
     private Node<T> first;
     private Node<T> last;
     private int size;
 
-    public static class Node<T> {
+    private static class Node<T> {
 
         private T element;
         private Node<T> next;
@@ -56,11 +58,87 @@ public class DoubleLinkedList<T> implements List<T> {
 
     @Override
     public void remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("не корректный индекс");
+        }
 
+        if (size == 1) {
+            first = null;
+            last = null;
+        } else if (size == 2) {
+            if (index == 0) {
+                first = last;
+                last.previous = null;
+            } else {
+                last = first;
+                first.next = null;
+            }
+        } else if (index == 0) {
+            first = first.next;
+            first.previous = null;
+        } else if (index == size - 1) {
+            last = last.previous;
+            last.next = null;
+        } else {
+            Node<T> node = getNode(index);
+            node.previous.next = node.next;
+            node.next.previous = node.previous;
+        }
+        size--;
     }
 
     @Override
     public boolean remove(T element) {
+        if (size == 0) {
+            return false;
+        }
+        if (size == 1) {
+            if (Objects.equals(first.element, element)) {
+                first = null;
+                last = null;
+                size--;
+                return true;
+            }
+            return false;
+        }
+
+        if (size == 2) {
+            if (Objects.equals(first.element, element)) {
+                first = last;
+                last.previous = null;
+                size--;
+                return true;
+            } else if (Objects.equals(last.element, element)) {
+                last = first;
+                first.next = null;
+                size--;
+                return true;
+            }
+            return false;
+        }
+
+        if (Objects.equals(first.element, element)) {
+            first = first.next;
+            first.previous = null;
+            size--;
+            return true;
+        } else {
+            Node<T> node = first;
+
+            for (int i = 1; i < size; i++) {
+                if (Objects.equals(node.next.element, element)) {
+                    node.next = node.next.next;
+                    if (i == size - 1) {
+                        last = node;
+                    } else {
+                        node.next.previous = node;
+                    }
+                    size--;
+                    return true;
+                }
+                node = node.next;
+            }
+        }
         return false;
     }
 
@@ -71,17 +149,27 @@ public class DoubleLinkedList<T> implements List<T> {
 
     @Override
     public void set(int index, T element) {
-
+        Node<T> node = getNode(index);
+        node.element = element;
     }
 
     @Override
     public int indexOf(T element) {
-        return 0;
+        Node<T> node = first;
+        for (int i = 0; i < size; i++) {
+            if (Objects.equals(node.element, element)) {
+                return i;
+            }
+            node = node.next;
+        }
+        return -1;
     }
 
     @Override
     public void clear() {
-
+        first = null;
+        last = null;
+        size = 0;
     }
 
     @Override
