@@ -2,6 +2,8 @@ package com.compony;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Stack;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DoubleLinkedListTest {
@@ -85,12 +87,49 @@ class DoubleLinkedListTest {
 
     @Test
     void indexOf() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
+        list.add("Я");
+        list.add("супер");
+        list.add("Java");
+        list.add("программист");
+
+        assertAll("",
+                () -> assertEquals(4, list.size()),
+                () -> assertEquals(0, list.indexOf("Я")),
+                () -> assertEquals(1, list.indexOf("супер")),
+                () -> assertEquals(2, list.indexOf("Java")),
+                () -> assertEquals(3, list.indexOf("программист"))
+        );
     }
 
     @Test
     void removeByIndex() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
+        list.add("Я");
+        list.add("супер");
+        list.add("Java");
+        list.add("программист");
+
+        list.remove(2);
+
+        assertAll("",
+                () -> assertEquals(3, list.size()),
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("программист", list.get(2))
+        );
+
+        list.add(2,"Java");
+
+        assertAll("",
+                () -> assertEquals(4, list.size()),
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("Java", list.get(2)),
+                () -> assertEquals("программист", list.get(3))
+        );
     }
 
     @Test
