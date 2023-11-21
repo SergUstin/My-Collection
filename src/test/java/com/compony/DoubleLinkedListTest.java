@@ -2,7 +2,6 @@ package com.compony;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -121,7 +120,7 @@ class DoubleLinkedListTest {
                 () -> assertEquals("программист", list.get(2))
         );
 
-        list.add(2,"Java");
+        list.add(2, "Java");
 
         assertAll("",
                 () -> assertEquals(4, list.size()),
@@ -134,74 +133,279 @@ class DoubleLinkedListTest {
 
     @Test
     void removeOneElementByIndex() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
+        list.add("Я");
+
+        list.remove(0);
+
+        assertEquals(0, list.size());
     }
 
     @Test
     void removeFirstOfTwoElementsByIndex() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
+
+        list.add("Я");
+        list.add("супер");
+
+        list.remove(0);
+        assertEquals(1, list.size());
+        assertEquals("супер", list.get(0));
 
     }
 
     @Test
     void removeSecondOfTwoElementsByIndex() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
+
+        list.add("Я");
+        list.add("супер");
+
+        list.remove(1);
+        assertEquals(1, list.size());
+        assertEquals("Я", list.get(0));
 
     }
 
     @Test
     void removeFirstOfManyByIndex() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
+
+        list.add("Я");
+        list.add("супер");
+        list.add("Java");
+        list.add("программист");
+
+        list.remove(0);
+
+        assertAll("",
+                () -> assertEquals(3, list.size()),
+                () -> assertEquals("супер", list.get(0)),
+                () -> assertEquals("Java", list.get(1)),
+                () -> assertEquals("программист", list.get(2))
+        );
+
+        list.add(0, "Я");
+
+        assertAll("",
+                () -> assertEquals(4, list.size()),
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("Java", list.get(2)),
+                () -> assertEquals("программист", list.get(3))
+        );
 
     }
 
     @Test
     void removeLastOfManyByIndex() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
+        list.add("Я");
+        list.add("супер");
+        list.add("Java");
+        list.add("программист");
+
+        list.remove(3);
+
+        assertAll("",
+                () -> assertEquals(3, list.size()),
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("Java", list.get(2))
+        );
+
+        list.add(3, "программист");
+
+        assertAll("",
+                () -> assertEquals(4, list.size()),
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("Java", list.get(2)),
+                () -> assertEquals("программист", list.get(3))
+        );
     }
 
     @Test
     void removeInMiddleOfManyByIndex() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
+        list.add("Я");
+        list.add("супер");
+        list.add("Java");
+        list.add("программист");
+
+        list.remove(2);
+
+        assertAll("",
+                () -> assertEquals(3, list.size()),
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("программист", list.get(2))
+        );
+
+        list.add(2, "Java");
+
+        assertAll("",
+                () -> assertEquals(4, list.size()),
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("Java", list.get(2)),
+                () -> assertEquals("программист", list.get(3))
+        );
     }
 
     @Test
     void removeOneElementByElement() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
+        list.add("Я");
+        assertTrue(list.remove("Я"));
+        assertEquals(0, list.size());
     }
 
     @Test
     void removeFirstElementOfTwoElementByElement() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
+
+        list.add("Я");
+        list.add("супер");
+
+        assertTrue(list.remove("Я"));
+        assertEquals(1, list.size());
+        assertEquals("супер", list.get(0));
 
     }
 
     @Test
     void removeSecondElementOfTwoElementByElement() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
+
+        list.add("Я");
+        list.add("супер");
+
+        assertTrue(list.remove("супер"));
+        assertEquals(1, list.size());
+        assertEquals("Я", list.get(0));
 
     }
 
     @Test
     void removeFirstOfManyByElement() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
+
+        list.add("Я");
+        list.add("супер");
+        list.add("Java");
+        list.add("программист");
+
+        assertTrue(list.remove("Я"));
+
+        assertAll("",
+                () -> assertEquals(3, list.size()),
+                () -> assertEquals("супер", list.get(0)),
+                () -> assertEquals("Java", list.get(1)),
+                () -> assertEquals("программист", list.get(2))
+        );
+
+        list.add(0, "Я");
+
+        assertAll("",
+                () -> assertEquals(4, list.size()),
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("Java", list.get(2)),
+                () -> assertEquals("программист", list.get(3))
+        );
 
     }
 
     @Test
     void removeLastOfManyByElement() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
+
+        list.add("Я");
+        list.add("супер");
+        list.add("Java");
+        list.add("программист");
+
+        assertTrue(list.remove("программист"));
+
+        assertAll("",
+                () -> assertEquals(3, list.size()),
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("Java", list.get(2))
+        );
+
+        list.add(3, "программист");
+
+        assertAll("",
+                () -> assertEquals(4, list.size()),
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("Java", list.get(2)),
+                () -> assertEquals("программист", list.get(3))
+        );
 
     }
 
     @Test
     void removeInMiddleOfManyByElement() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
+
+        list.add("Я");
+        list.add("супер");
+        list.add("Java");
+        list.add("программист");
+
+        assertTrue(list.remove("Java"));
+
+        assertAll("",
+                () -> assertEquals(3, list.size()),
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("программист", list.get(2))
+        );
+
+        list.add(2, "Java");
+
+        assertAll("",
+                () -> assertEquals(4, list.size()),
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("Java", list.get(2)),
+                () -> assertEquals("программист", list.get(3))
+        );
 
     }
 
     @Test
     void removeNotExistElementOfManyByElement() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
+
+        list.add("Я");
+        list.add("супер");
+        list.add("Java");
+        list.add("программист");
+
+        assertThrows(IllegalArgumentException.class, () -> list.remove(4));
 
     }
 
     @Test
     void clear() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
+
+        list.add("Я");
+        list.add("супер");
+        list.add("Java");
+        list.add("программист");
+
+        list.clear();
+        assertEquals(0, list.size());
+
 
     }
-
-
-
 }
