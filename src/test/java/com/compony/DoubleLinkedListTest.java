@@ -405,7 +405,5 @@ class DoubleLinkedListTest {
 
         list.clear();
         assertEquals(0, list.size());
-
-
     }
 }
