@@ -1,5 +1,6 @@
-package com.compony;
+package com.compony.list;
 
+import com.compony.list.ArrayList;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

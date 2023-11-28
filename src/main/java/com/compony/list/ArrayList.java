@@ -1,4 +1,4 @@
-package com.compony;
+package com.compony.list;
 
 import java.util.Arrays;
 import java.util.Objects;

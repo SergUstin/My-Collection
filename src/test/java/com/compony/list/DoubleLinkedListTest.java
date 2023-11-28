@@ -1,14 +1,17 @@
-package com.compony;
+package com.compony.list;
 
+import com.compony.list.DoubleLinkedList;
 import org.junit.jupiter.api.Test;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SingleLinkedListTest {
+class DoubleLinkedListTest {
+    //test{Method}_Should{Do}_When{Condition}
 
     @Test
-    void add() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
+    void testAdd_ShouldAddedElement_WhenEmptyList() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
         list.add("Я");
         list.add("супер");
@@ -25,79 +28,66 @@ class SingleLinkedListTest {
     }
 
     @Test
-    void addWithIndex() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
+    void testAdd_ShouldAddedBeginElement() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
         list.add("супер");
         list.add("Java");
         list.add("программист");
         list.add(0, "Я");
-        list.add(1, ",");
+
+        assertAll("",
+                () -> assertEquals(4, list.size()),
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("Java", list.get(2)),
+                () -> assertEquals("программист", list.get(3))
+        );
+    }
+
+    @Test
+    void testAdd_ShouldAddedFirstHalfElement() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
+
+        list.add("Я");
+        list.add("супер");
+        list.add("программист");
+        list.add("!");
+        list.add(2, "Java");
 
         assertAll("",
                 () -> assertEquals(5, list.size()),
                 () -> assertEquals("Я", list.get(0)),
-                () -> assertEquals(",", list.get(1)),
-                () -> assertEquals("супер", list.get(2)),
-                () -> assertEquals("Java", list.get(3)),
-                () -> assertEquals("программист", list.get(4))
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("Java", list.get(2)),
+                () -> assertEquals("программист", list.get(3)),
+                () -> assertEquals("!", list.get(4))
         );
     }
 
     @Test
-    void addWrongEmptyList() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
-
-        assertThrows(IllegalArgumentException.class, () -> list.add(2, "!"));
-    }
-
-    @Test
-    void set() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
+    void testAdd_ShouldAddedSecondHalfElement() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
         list.add("Я");
         list.add("супер");
         list.add("Java");
-        list.add("программист");
-        list.set(3, "QA");
+        list.add("!");
+        list.add(3, "программист");
 
         assertAll("",
-                () -> assertEquals(4, list.size()),
+                () -> assertEquals(5, list.size()),
                 () -> assertEquals("Я", list.get(0)),
                 () -> assertEquals("супер", list.get(1)),
                 () -> assertEquals("Java", list.get(2)),
-                () -> assertEquals("QA", list.get(3))
+                () -> assertEquals("программист", list.get(3)),
+                () -> assertEquals("!", list.get(4))
         );
-    }
-
-    @Test
-    void setWrong() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
-
-        assertThrows(IllegalArgumentException.class, () -> list.set(2, "!"));
     }
 
     @Test
     void indexOf() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
-
-        list.add("Я");
-        list.add("супер");
-        list.add("Java");
-        list.add("программист");
-
-        assertEquals(3, list.indexOf("программист"));
-        assertEquals(-1, list.indexOf("QA"));
-    }
-
-    @Test
-    void removeOneElement() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
-
-        list.add("Я");
-        list.remove(0);
-
-        assertEquals(0, list.size());
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
         list.add("Я");
         list.add("супер");
@@ -106,123 +96,16 @@ class SingleLinkedListTest {
 
         assertAll("",
                 () -> assertEquals(4, list.size()),
-                () -> assertEquals("Я", list.get(0)),
-                () -> assertEquals("супер", list.get(1)),
-                () -> assertEquals("Java", list.get(2)),
-                () -> assertEquals("программист", list.get(3))
+                () -> assertEquals(0, list.indexOf("Я")),
+                () -> assertEquals(1, list.indexOf("супер")),
+                () -> assertEquals(2, list.indexOf("Java")),
+                () -> assertEquals(3, list.indexOf("программист"))
         );
     }
 
     @Test
-    void removedFirstOfTwoElement() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
-
-        list.add("Я");
-        list.add("супер");
-        list.remove(0);
-
-        assertEquals(1, list.size());
-        assertEquals("супер", list.get(0));
-
-        list.add(0, "Я");
-        list.add("Java");
-        list.add("программист");
-
-        assertAll("",
-                () -> assertEquals(4, list.size()),
-                () -> assertEquals("Я", list.get(0)),
-                () -> assertEquals("супер", list.get(1)),
-                () -> assertEquals("Java", list.get(2)),
-                () -> assertEquals("программист", list.get(3))
-        );
-    }
-
-    @Test
-    void removeSecondOfTwoElement() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
-
-        list.add("Я");
-        list.add("супер");
-        list.remove(1);
-
-        assertEquals(1, list.size());
-        assertEquals("Я", list.get(0));
-
-        list.add(1, "супер");
-        list.add("Java");
-        list.add("программист");
-
-        assertAll("",
-                () -> assertEquals(4, list.size()),
-                () -> assertEquals("Я", list.get(0)),
-                () -> assertEquals("супер", list.get(1)),
-                () -> assertEquals("Java", list.get(2)),
-                () -> assertEquals("программист", list.get(3))
-        );
-    }
-
-    @Test
-    void removeFirstElementOfMany() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
-
-        list.add("Я");
-        list.add("супер");
-        list.add("Java");
-        list.add("программист");
-
-        list.remove(0);
-
-        assertAll("",
-                () -> assertEquals(3, list.size()),
-                () -> assertEquals("супер", list.get(0)),
-                () -> assertEquals("Java", list.get(1)),
-                () -> assertEquals("программист", list.get(2))
-        );
-
-        list.add(0, "Я");
-
-        assertAll("",
-                () -> assertEquals(4, list.size()),
-                () -> assertEquals("Я", list.get(0)),
-                () -> assertEquals("супер", list.get(1)),
-                () -> assertEquals("Java", list.get(2)),
-                () -> assertEquals("программист", list.get(3))
-        );
-    }
-
-    @Test
-    void removeLastOfMany() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
-
-        list.add("Я");
-        list.add("супер");
-        list.add("Java");
-        list.add("программист");
-
-        list.remove(3);
-
-        assertAll("",
-                () -> assertEquals(3, list.size()),
-                () -> assertEquals("Я", list.get(0)),
-                () -> assertEquals("супер", list.get(1)),
-                () -> assertEquals("Java", list.get(2))
-        );
-
-        list.add(3, "программист");
-
-        assertAll("",
-                () -> assertEquals(4, list.size()),
-                () -> assertEquals("Я", list.get(0)),
-                () -> assertEquals("супер", list.get(1)),
-                () -> assertEquals("Java", list.get(2)),
-                () -> assertEquals("программист", list.get(3))
-        );
-
-    }
-
-    @Test
-    void removeOfMany() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
+    void removeByIndex() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
         list.add("Я");
         list.add("супер");
@@ -247,23 +130,64 @@ class SingleLinkedListTest {
                 () -> assertEquals("Java", list.get(2)),
                 () -> assertEquals("программист", list.get(3))
         );
+    }
+
+    @Test
+    void removeOneElementByIndex() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
+
+        list.add("Я");
+
+        list.remove(0);
+
+        assertEquals(0, list.size());
+    }
+
+    @Test
+    void removeFirstOfTwoElementsByIndex() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
+
+        list.add("Я");
+        list.add("супер");
+
+        list.remove(0);
+        assertEquals(1, list.size());
+        assertEquals("супер", list.get(0));
 
     }
 
     @Test
-    void removeElementOfElements() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
+    void removeSecondOfTwoElementsByIndex() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
         list.add("Я");
+        list.add("супер");
 
-        assertTrue(list.remove("Я"));
+        list.remove(1);
+        assertEquals(1, list.size());
+        assertEquals("Я", list.get(0));
 
-        assertEquals(0, list.size());
+    }
+
+    @Test
+    void removeFirstOfManyByIndex() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
         list.add("Я");
         list.add("супер");
         list.add("Java");
         list.add("программист");
+
+        list.remove(0);
+
+        assertAll("",
+                () -> assertEquals(3, list.size()),
+                () -> assertEquals("супер", list.get(0)),
+                () -> assertEquals("Java", list.get(1)),
+                () -> assertEquals("программист", list.get(2))
+        );
+
+        list.add(0, "Я");
 
         assertAll("",
                 () -> assertEquals(4, list.size()),
@@ -276,8 +200,75 @@ class SingleLinkedListTest {
     }
 
     @Test
-    void removeFirstOfTwoElementOfElement() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
+    void removeLastOfManyByIndex() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
+
+        list.add("Я");
+        list.add("супер");
+        list.add("Java");
+        list.add("программист");
+
+        list.remove(3);
+
+        assertAll("",
+                () -> assertEquals(3, list.size()),
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("Java", list.get(2))
+        );
+
+        list.add(3, "программист");
+
+        assertAll("",
+                () -> assertEquals(4, list.size()),
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("Java", list.get(2)),
+                () -> assertEquals("программист", list.get(3))
+        );
+    }
+
+    @Test
+    void removeInMiddleOfManyByIndex() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
+
+        list.add("Я");
+        list.add("супер");
+        list.add("Java");
+        list.add("программист");
+
+        list.remove(2);
+
+        assertAll("",
+                () -> assertEquals(3, list.size()),
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("программист", list.get(2))
+        );
+
+        list.add(2, "Java");
+
+        assertAll("",
+                () -> assertEquals(4, list.size()),
+                () -> assertEquals("Я", list.get(0)),
+                () -> assertEquals("супер", list.get(1)),
+                () -> assertEquals("Java", list.get(2)),
+                () -> assertEquals("программист", list.get(3))
+        );
+    }
+
+    @Test
+    void removeOneElementByElement() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
+
+        list.add("Я");
+        assertTrue(list.remove("Я"));
+        assertEquals(0, list.size());
+    }
+
+    @Test
+    void removeFirstElementOfTwoElementByElement() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
         list.add("Я");
         list.add("супер");
@@ -286,22 +277,11 @@ class SingleLinkedListTest {
         assertEquals(1, list.size());
         assertEquals("супер", list.get(0));
 
-        list.add(0, "Я");
-        list.add("Java");
-        list.add("программист");
-
-        assertAll("",
-                () -> assertEquals(4, list.size()),
-                () -> assertEquals("Я", list.get(0)),
-                () -> assertEquals("супер", list.get(1)),
-                () -> assertEquals("Java", list.get(2)),
-                () -> assertEquals("программист", list.get(3))
-        );
     }
 
     @Test
-    void removeSecondOfTwoElementOfElement() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
+    void removeSecondElementOfTwoElementByElement() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
         list.add("Я");
         list.add("супер");
@@ -310,22 +290,11 @@ class SingleLinkedListTest {
         assertEquals(1, list.size());
         assertEquals("Я", list.get(0));
 
-        list.add("супер");
-        list.add("Java");
-        list.add("программист");
-
-        assertAll("",
-                () -> assertEquals(4, list.size()),
-                () -> assertEquals("Я", list.get(0)),
-                () -> assertEquals("супер", list.get(1)),
-                () -> assertEquals("Java", list.get(2)),
-                () -> assertEquals("программист", list.get(3))
-        );
     }
 
     @Test
-    void removeFirstOfManyOfElements() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
+    void removeFirstOfManyByElement() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
         list.add("Я");
         list.add("супер");
@@ -350,11 +319,12 @@ class SingleLinkedListTest {
                 () -> assertEquals("Java", list.get(2)),
                 () -> assertEquals("программист", list.get(3))
         );
+
     }
 
     @Test
-    void removeLastOfManyOfElements() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
+    void removeLastOfManyByElement() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
         list.add("Я");
         list.add("супер");
@@ -370,7 +340,7 @@ class SingleLinkedListTest {
                 () -> assertEquals("Java", list.get(2))
         );
 
-        list.add("программист");
+        list.add(3, "программист");
 
         assertAll("",
                 () -> assertEquals(4, list.size()),
@@ -383,24 +353,24 @@ class SingleLinkedListTest {
     }
 
     @Test
-    void removeOfManyOfElements() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
+    void removeInMiddleOfManyByElement() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
         list.add("Я");
         list.add("супер");
         list.add("Java");
         list.add("программист");
 
-        assertTrue(list.remove("супер"));
+        assertTrue(list.remove("Java"));
 
         assertAll("",
                 () -> assertEquals(3, list.size()),
                 () -> assertEquals("Я", list.get(0)),
-                () -> assertEquals("Java", list.get(1)),
+                () -> assertEquals("супер", list.get(1)),
                 () -> assertEquals("программист", list.get(2))
         );
 
-        list.add(1, "супер");
+        list.add(2, "Java");
 
         assertAll("",
                 () -> assertEquals(4, list.size()),
@@ -409,33 +379,25 @@ class SingleLinkedListTest {
                 () -> assertEquals("Java", list.get(2)),
                 () -> assertEquals("программист", list.get(3))
         );
+
     }
 
     @Test
-    void removeOfEmptyOfElements() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
-
-        assertFalse(list.remove("Hello"));
-        assertEquals(0, list.size());
+    void removeNotExistElementOfManyByElement() {
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
         list.add("Я");
         list.add("супер");
         list.add("Java");
         list.add("программист");
 
-        assertAll("",
-                () -> assertEquals(4, list.size()),
-                () -> assertEquals("Я", list.get(0)),
-                () -> assertEquals("супер", list.get(1)),
-                () -> assertEquals("Java", list.get(2)),
-                () -> assertEquals("программист", list.get(3))
-        );
+        assertThrows(IllegalArgumentException.class, () -> list.remove(4));
 
     }
 
     @Test
     void clear() {
-        SingleLinkedList<String> list = new SingleLinkedList<>();
+        DoubleLinkedList<String> list = new DoubleLinkedList<>();
 
         list.add("Я");
         list.add("супер");
@@ -444,7 +406,5 @@ class SingleLinkedListTest {
 
         list.clear();
         assertEquals(0, list.size());
-
     }
-
 }

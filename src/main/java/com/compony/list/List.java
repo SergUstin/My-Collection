@@ -1,4 +1,4 @@
-package com.compony;
+package com.compony.list;
 
 
 public interface List<T> {
