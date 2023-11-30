@@ -19,7 +19,7 @@ public class Stack<T> {
 
     public void push(T element) {
         if (element == null) {
-            throw new IllegalArgumentException("Element can not be NaN");
+            throw new IllegalArgumentException("Element can not be Null");
         }
 
         Node<T> node = new Node<>();
