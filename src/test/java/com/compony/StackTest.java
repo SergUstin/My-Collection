@@ -37,7 +37,6 @@ class StackTest {
 
     @Test
     void pop() {
-        // Создать стэк
         // Удалить элемент через pop() и проверить, что вернулось null
         // Проверить размерность на 0
 
@@ -73,6 +72,12 @@ class StackTest {
     // Написать тест, который при передачи в push() значение null, выдаст нужный текст нашего exception
     @Test
     void testPush_ShouldThrowExTextMessage_WhenArgsNull() {
-        assertThrows(IllegalArgumentException.class, () -> stack.push(null), "Element can not be Null");
+//        assertThrows(IllegalArgumentException.class, () -> stack.push(null), "Element can not be Null");
+        try {
+            stack.push(null);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("Element can not be Null", e.getMessage());
+        }
     }
 }
