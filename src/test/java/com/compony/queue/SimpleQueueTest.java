@@ -59,7 +59,7 @@ class SimpleQueueTest {
     void testPut_ShouldThrowIllegalArgumentEx_WhenArgsNull() {
         assertThrows(IllegalArgumentException.class, () -> queue.put(null));
     }
-    // Поправить тест!!!
+
     @Disabled
     @Test
     void testPut_ShouldThrowExTextMessage_WhenArgsNull() {
